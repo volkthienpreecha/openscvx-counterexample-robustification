@@ -56,3 +56,8 @@ def test_variable_time_dilation_maps_actual_normalized_control():
     schedule = f.ControlSchedule([0, 3], [[0, 0], [1, 0]],
                                  dilation=[4, 8], fraction_scale=1, tau_step=0.5)
     assert schedule.at(1.25)[0] == pytest.approx(0.5)
+
+
+def test_geometric_path_length_counts_reverse_motion():
+    schedule = api().ControlSchedule([0, 8], [[-0.5, 0], [-0.5, 0]])
+    assert schedule.length() == pytest.approx(4)

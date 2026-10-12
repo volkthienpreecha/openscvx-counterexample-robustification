@@ -54,7 +54,7 @@ class ControlSchedule:
         # Integrate the applied speed, including the installed segment extrapolation.
         total = 0.0
         for k in range(len(self.times) - 1):
-            sol = solve_ivp(lambda t, y: [self.at(t, k)[0]], self.times[k:k + 2],
+            sol = solve_ivp(lambda t, y: [abs(self.at(t, k)[0])], self.times[k:k + 2],
                             [0.0], method="DOP853", rtol=1e-11, atol=1e-12)
             total += sol.y[0, -1]
         return float(total)

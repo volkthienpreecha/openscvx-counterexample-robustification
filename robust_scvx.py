@@ -10,6 +10,7 @@ from time import perf_counter
 import numpy as np
 import openscvx as ox
 from openscvx.propagation.propagation import prop_aug_dy, s_to_t
+from openscvx.discretization.base import _resolve_foh_mask
 
 from falsifier import ControlSchedule, rollout
 
@@ -126,10 +127,19 @@ def solve_and_capture(built, output):
     dilation = result.u[:, dilation_slice].reshape(-1)
     scale = interpolation["segment_fraction_scale"]
     # Reconstruct physical times of the ACTUALLY applied normalized-time controls.
-    duration = (dilation[:-1] + 0.5 * scale * np.diff(dilation)) / (len(times) - 1)
-    applied_times = np.r_[times[0], times[0] + np.cumsum(duration)]
-    schedule = ControlSchedule(applied_times, values, fraction_scale=scale,
-                               dilation=dilation, tau_step=1 / (len(times) - 1))
+    masks = _resolve_foh_mask(problem.discretizer.dis_type, result.u.shape[1],
+                              problem.settings.sim.u.foh_mask)
+    interpolation["resolved_control_foh_mask"] = masks.tolist()
+    if masks[dilation_slice.start] == 0:
+        # Time is ZOH even though speed and turn_rate are FOH. Each optimized
+        # physical interval has constant dilation, so normalized beta maps linearly.
+        applied_times = times
+        schedule = ControlSchedule(times, values, fraction_scale=scale)
+    else:
+        duration = (dilation[:-1] + 0.5 * scale * np.diff(dilation)) / (len(times) - 1)
+        applied_times = np.r_[times[0], times[0] + np.cumsum(duration)]
+        schedule = ControlSchedule(applied_times, values, fraction_scale=scale,
+                                   dilation=dilation, tau_step=1 / (len(times) - 1))
     dense_times = np.asarray(result.t_full)
     if abs(applied_times[-1] - 8) > 1e-5:
         raise RuntimeError("Applied time-dilation interpolation changes the horizon; inspect upstream API")
@@ -139,6 +149,8 @@ def solve_and_capture(built, output):
     nodal_pose = np.column_stack([result.nodes["position"], result.nodes["theta"]])
     nodal_independent = rollout(schedule, 0, applied_times)
     applied_controls = np.asarray([schedule.at(t) for t in dense_times])
+    control_extrema = np.asarray([schedule.at(t, k) for k in range(len(times) - 1)
+                                  for t in schedule.times[k:k + 2]])
     published_controls = np.column_stack([result.trajectory["speed"], result.trajectory["turn_rate"]])
     state = problem._state
     summary = {
@@ -152,9 +164,9 @@ def solve_and_capture(built, output):
         "ctcs_violation": np.asarray(result.ctcs_violation).tolist(),
         "final_J_tr": float(state.J_tr), "final_J_vb": float(state.J_vb),
         "final_J_vc": float(state.J_vc),
-        "max_speed_m_s": float(np.max(applied_controls[:, 0])),
-        "min_speed_m_s": float(np.min(applied_controls[:, 0])),
-        "max_abs_turn_rate_rad_s": float(np.max(np.abs(applied_controls[:, 1]))),
+        "max_speed_m_s": float(np.max(control_extrema[:, 0])),
+        "min_speed_m_s": float(np.min(control_extrema[:, 0])),
+        "max_abs_turn_rate_rad_s": float(np.max(np.abs(control_extrema[:, 1]))),
         "u_full_vs_applied_controls_max_abs_difference": float(np.max(np.abs(applied_controls - published_controls))),
         "optimization_time_grid_s": times.tolist(), "applied_time_grid_s": applied_times.tolist(),
         "control_knots": values.tolist(), "time_dilation_knots": dilation.tolist(),
