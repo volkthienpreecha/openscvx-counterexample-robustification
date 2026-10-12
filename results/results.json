@@ -1,0 +1,632 @@
+{
+  "disturbance_interval_rad_s": [
+    -0.05,
+    0.05
+  ],
+  "N": 5,
+  "T_s": 8,
+  "search_bias_count": 101,
+  "validation_bias_count": 501,
+  "search_time_count": 4001,
+  "validation_time_count": 8001,
+  "formal_safety_certificate": false,
+  "interpolation": {
+    "openscvx_version": "0.5.2",
+    "hold": "FOH in normalized time",
+    "segment_fraction_scale": 1.25,
+    "source": "openscvx.propagation.propagation.prop_aug_dy",
+    "expression": "beta=(tau-tau_init)*N; segment duration=1/(N-1)",
+    "warning": "In 0.5.2, segment endpoint beta=1.25; u_full uses ordinary physical-time interpolation and differs from applied controls."
+  },
+  "iterations": [
+    {
+      "iteration": 0,
+      "worst": {
+        "clearance": -0.1312086691650658,
+        "bias": -0.05,
+        "time": 3.893999999988291,
+        "position": [
+          2.1864816931979476,
+          0.37498100869846984
+        ],
+        "runtime_s": 2.94868219998898
+      },
+      "solver": {
+        "converged": true,
+        "scvx_iterations": 20,
+        "path_length_m": 4.181564375891131,
+        "openscvx_propagated_distance_m": 4.1701008912527975,
+        "nominal_terminal_error": [
+          -2.9458721475528193e-06,
+          -1.51368303325395e-06,
+          8.000487710518867e-07
+        ],
+        "nominal_terminal_error_norm": 3.407268271056738e-06,
+        "nominal_reproduction_max_abs_error": 5.023923682401232e-06,
+        "nominal_nodal_propagation_defect_max_abs": 2.94587239446642e-06,
+        "ctcs_violation": [
+          -8.467612253836905e-06
+        ],
+        "final_J_tr": 2.9374718966200902e-05,
+        "final_J_vb": 0.0,
+        "final_J_vc": 4.856315605407237e-13,
+        "max_speed_m_s": 1.0650513405760687,
+        "min_speed_m_s": -0.0885435106405521,
+        "max_abs_turn_rate_rad_s": 0.6614323210946431,
+        "u_full_vs_applied_controls_max_abs_difference": 0.21767153662771166,
+        "optimization_time_grid_s": [
+          3.2023272922288015e-12,
+          1.5286165870311974,
+          3.120261949765612,
+          5.882705669663986,
+          7.999999999972568
+        ],
+        "applied_time_grid_s": [
+          3.2023272922288015e-12,
+          1.5286165870311974,
+          3.120261949765612,
+          5.882705669663986,
+          7.999999999972568
+        ],
+        "control_knots": [
+          [
+            0.739761246095228,
+            0.6614323210946431
+          ],
+          [
+            0.9999933216799004,
+            -0.07517270444938617
+          ],
+          [
+            0.12916385582353845,
+            -0.3262271475863491
+          ],
+          [
+            0.45545681134455873,
+            0.02693544904979868
+          ],
+          [
+            0.5920972528899224,
+            0.25096993763763337
+          ]
+        ],
+        "time_dilation_knots": [
+          6.11446634811198,
+          6.36658145093766,
+          11.049774879593498,
+          8.469177321234328,
+          8.00000171466772
+        ],
+        "retained_biases_rad_s": [
+          0.0
+        ],
+        "runtime_initialize_s": 11.072541999979876,
+        "runtime_optimizer_s": 0.9907384000252932,
+        "runtime_postprocess_s": 4.5826116999960504,
+        "runtime_total_s": 16.645892500004265,
+        "interpolation": {
+          "openscvx_version": "0.5.2",
+          "hold": "FOH in normalized time",
+          "segment_fraction_scale": 1.25,
+          "source": "openscvx.propagation.propagation.prop_aug_dy",
+          "expression": "beta=(tau-tau_init)*N; segment duration=1/(N-1)",
+          "warning": "In 0.5.2, segment endpoint beta=1.25; u_full uses ordinary physical-time interpolation and differs from applied controls.",
+          "resolved_control_foh_mask": [
+            1.0,
+            1.0,
+            0.0
+          ]
+        }
+      }
+    },
+    {
+      "iteration": 1,
+      "worst": {
+        "clearance": -0.015776270187740193,
+        "bias": -0.05,
+        "time": 2.204000000155586,
+        "position": [
+          1.9115244283839452,
+          0.5268463407121043
+        ],
+        "runtime_s": 2.8159794000093825
+      },
+      "solver": {
+        "converged": true,
+        "scvx_iterations": 25,
+        "path_length_m": 4.2573111757620845,
+        "openscvx_propagated_distance_m": 4.240522453569264,
+        "nominal_terminal_error": [
+          -1.1994162409045828e-05,
+          6.676464454555275e-08,
+          8.08021083958943e-07
+        ],
+        "nominal_terminal_error_norm": 1.202153432322395e-05,
+        "nominal_reproduction_max_abs_error": 9.985426940417597e-06,
+        "nominal_nodal_propagation_defect_max_abs": 1.2236956858480141e-05,
+        "ctcs_violation": [
+          0.00013886886475810285
+        ],
+        "final_J_tr": 8.067463610098248e-05,
+        "final_J_vb": 0.0,
+        "final_J_vc": 3.304857025659197e-12,
+        "max_speed_m_s": 1.0155353514652115,
+        "min_speed_m_s": -0.10860653714914492,
+        "max_abs_turn_rate_rad_s": 0.7529118230720453,
+        "u_full_vs_applied_controls_max_abs_difference": 0.22039201947391795,
+        "optimization_time_grid_s": [
+          1.6716228401492117e-10,
+          1.4915467543021241,
+          3.0694198826631145,
+          5.866185264052838,
+          8.000000000125143
+        ],
+        "applied_time_grid_s": [
+          1.6716228401492117e-10,
+          1.4915467543021241,
+          3.0694198826631145,
+          5.866185264052838,
+          8.000000000125143
+        ],
+        "control_knots": [
+          [
+            0.9377173868275628,
+            0.7529118230720453
+          ],
+          [
+            0.9999717585376817,
+            -0.052130896354899224
+          ],
+          [
+            0.11310912198822043,
+            -0.347742301820431
+          ],
+          [
+            0.5055357619995572,
+            -0.03633843321304156
+          ],
+          [
+            0.5052323326676048,
+            0.3438385617686768
+          ]
+        ],
+        "time_dilation_knots": [
+          5.966187016539847,
+          6.3114925134439614,
+          11.187061525558892,
+          8.535258944289218,
+          8.000002054101245
+        ],
+        "retained_biases_rad_s": [
+          0.0,
+          -0.05
+        ],
+        "runtime_initialize_s": 9.792023499961942,
+        "runtime_optimizer_s": 0.9672488000360318,
+        "runtime_postprocess_s": 4.61295079998672,
+        "runtime_total_s": 15.372223399986979,
+        "interpolation": {
+          "openscvx_version": "0.5.2",
+          "hold": "FOH in normalized time",
+          "segment_fraction_scale": 1.25,
+          "source": "openscvx.propagation.propagation.prop_aug_dy",
+          "expression": "beta=(tau-tau_init)*N; segment duration=1/(N-1)",
+          "warning": "In 0.5.2, segment endpoint beta=1.25; u_full uses ordinary physical-time interpolation and differs from applied controls.",
+          "resolved_control_foh_mask": [
+            1.0,
+            1.0,
+            0.0
+          ]
+        }
+      }
+    }
+  ],
+  "solver_attempts": [
+    {
+      "converged": true,
+      "scvx_iterations": 20,
+      "path_length_m": 4.181564375891131,
+      "openscvx_propagated_distance_m": 4.1701008912527975,
+      "nominal_terminal_error": [
+        -2.9458721475528193e-06,
+        -1.51368303325395e-06,
+        8.000487710518867e-07
+      ],
+      "nominal_terminal_error_norm": 3.407268271056738e-06,
+      "nominal_reproduction_max_abs_error": 5.023923682401232e-06,
+      "nominal_nodal_propagation_defect_max_abs": 2.94587239446642e-06,
+      "ctcs_violation": [
+        -8.467612253836905e-06
+      ],
+      "final_J_tr": 2.9374718966200902e-05,
+      "final_J_vb": 0.0,
+      "final_J_vc": 4.856315605407237e-13,
+      "max_speed_m_s": 1.0650513405760687,
+      "min_speed_m_s": -0.0885435106405521,
+      "max_abs_turn_rate_rad_s": 0.6614323210946431,
+      "u_full_vs_applied_controls_max_abs_difference": 0.21767153662771166,
+      "optimization_time_grid_s": [
+        3.2023272922288015e-12,
+        1.5286165870311974,
+        3.120261949765612,
+        5.882705669663986,
+        7.999999999972568
+      ],
+      "applied_time_grid_s": [
+        3.2023272922288015e-12,
+        1.5286165870311974,
+        3.120261949765612,
+        5.882705669663986,
+        7.999999999972568
+      ],
+      "control_knots": [
+        [
+          0.739761246095228,
+          0.6614323210946431
+        ],
+        [
+          0.9999933216799004,
+          -0.07517270444938617
+        ],
+        [
+          0.12916385582353845,
+          -0.3262271475863491
+        ],
+        [
+          0.45545681134455873,
+          0.02693544904979868
+        ],
+        [
+          0.5920972528899224,
+          0.25096993763763337
+        ]
+      ],
+      "time_dilation_knots": [
+        6.11446634811198,
+        6.36658145093766,
+        11.049774879593498,
+        8.469177321234328,
+        8.00000171466772
+      ],
+      "retained_biases_rad_s": [
+        0.0
+      ],
+      "runtime_initialize_s": 11.072541999979876,
+      "runtime_optimizer_s": 0.9907384000252932,
+      "runtime_postprocess_s": 4.5826116999960504,
+      "runtime_total_s": 16.645892500004265,
+      "interpolation": {
+        "openscvx_version": "0.5.2",
+        "hold": "FOH in normalized time",
+        "segment_fraction_scale": 1.25,
+        "source": "openscvx.propagation.propagation.prop_aug_dy",
+        "expression": "beta=(tau-tau_init)*N; segment duration=1/(N-1)",
+        "warning": "In 0.5.2, segment endpoint beta=1.25; u_full uses ordinary physical-time interpolation and differs from applied controls.",
+        "resolved_control_foh_mask": [
+          1.0,
+          1.0,
+          0.0
+        ]
+      }
+    },
+    {
+      "converged": true,
+      "scvx_iterations": 25,
+      "path_length_m": 4.2573111757620845,
+      "openscvx_propagated_distance_m": 4.240522453569264,
+      "nominal_terminal_error": [
+        -1.1994162409045828e-05,
+        6.676464454555275e-08,
+        8.08021083958943e-07
+      ],
+      "nominal_terminal_error_norm": 1.202153432322395e-05,
+      "nominal_reproduction_max_abs_error": 9.985426940417597e-06,
+      "nominal_nodal_propagation_defect_max_abs": 1.2236956858480141e-05,
+      "ctcs_violation": [
+        0.00013886886475810285
+      ],
+      "final_J_tr": 8.067463610098248e-05,
+      "final_J_vb": 0.0,
+      "final_J_vc": 3.304857025659197e-12,
+      "max_speed_m_s": 1.0155353514652115,
+      "min_speed_m_s": -0.10860653714914492,
+      "max_abs_turn_rate_rad_s": 0.7529118230720453,
+      "u_full_vs_applied_controls_max_abs_difference": 0.22039201947391795,
+      "optimization_time_grid_s": [
+        1.6716228401492117e-10,
+        1.4915467543021241,
+        3.0694198826631145,
+        5.866185264052838,
+        8.000000000125143
+      ],
+      "applied_time_grid_s": [
+        1.6716228401492117e-10,
+        1.4915467543021241,
+        3.0694198826631145,
+        5.866185264052838,
+        8.000000000125143
+      ],
+      "control_knots": [
+        [
+          0.9377173868275628,
+          0.7529118230720453
+        ],
+        [
+          0.9999717585376817,
+          -0.052130896354899224
+        ],
+        [
+          0.11310912198822043,
+          -0.347742301820431
+        ],
+        [
+          0.5055357619995572,
+          -0.03633843321304156
+        ],
+        [
+          0.5052323326676048,
+          0.3438385617686768
+        ]
+      ],
+      "time_dilation_knots": [
+        5.966187016539847,
+        6.3114925134439614,
+        11.187061525558892,
+        8.535258944289218,
+        8.000002054101245
+      ],
+      "retained_biases_rad_s": [
+        0.0,
+        -0.05
+      ],
+      "runtime_initialize_s": 9.792023499961942,
+      "runtime_optimizer_s": 0.9672488000360318,
+      "runtime_postprocess_s": 4.61295079998672,
+      "runtime_total_s": 15.372223399986979,
+      "interpolation": {
+        "openscvx_version": "0.5.2",
+        "hold": "FOH in normalized time",
+        "segment_fraction_scale": 1.25,
+        "source": "openscvx.propagation.propagation.prop_aug_dy",
+        "expression": "beta=(tau-tau_init)*N; segment duration=1/(N-1)",
+        "warning": "In 0.5.2, segment endpoint beta=1.25; u_full uses ordinary physical-time interpolation and differs from applied controls.",
+        "resolved_control_foh_mask": [
+          1.0,
+          1.0,
+          0.0
+        ]
+      }
+    }
+  ],
+  "status": "remaining_collision",
+  "failures": [],
+  "baseline": {
+    "converged": true,
+    "scvx_iterations": 20,
+    "path_length_m": 4.181564375891131,
+    "openscvx_propagated_distance_m": 4.1701008912527975,
+    "nominal_terminal_error": [
+      -2.9458721475528193e-06,
+      -1.51368303325395e-06,
+      8.000487710518867e-07
+    ],
+    "nominal_terminal_error_norm": 3.407268271056738e-06,
+    "nominal_reproduction_max_abs_error": 5.023923682401232e-06,
+    "nominal_nodal_propagation_defect_max_abs": 2.94587239446642e-06,
+    "ctcs_violation": [
+      -8.467612253836905e-06
+    ],
+    "final_J_tr": 2.9374718966200902e-05,
+    "final_J_vb": 0.0,
+    "final_J_vc": 4.856315605407237e-13,
+    "max_speed_m_s": 1.0650513405760687,
+    "min_speed_m_s": -0.0885435106405521,
+    "max_abs_turn_rate_rad_s": 0.6614323210946431,
+    "u_full_vs_applied_controls_max_abs_difference": 0.21767153662771166,
+    "optimization_time_grid_s": [
+      3.2023272922288015e-12,
+      1.5286165870311974,
+      3.120261949765612,
+      5.882705669663986,
+      7.999999999972568
+    ],
+    "applied_time_grid_s": [
+      3.2023272922288015e-12,
+      1.5286165870311974,
+      3.120261949765612,
+      5.882705669663986,
+      7.999999999972568
+    ],
+    "control_knots": [
+      [
+        0.739761246095228,
+        0.6614323210946431
+      ],
+      [
+        0.9999933216799004,
+        -0.07517270444938617
+      ],
+      [
+        0.12916385582353845,
+        -0.3262271475863491
+      ],
+      [
+        0.45545681134455873,
+        0.02693544904979868
+      ],
+      [
+        0.5920972528899224,
+        0.25096993763763337
+      ]
+    ],
+    "time_dilation_knots": [
+      6.11446634811198,
+      6.36658145093766,
+      11.049774879593498,
+      8.469177321234328,
+      8.00000171466772
+    ],
+    "retained_biases_rad_s": [
+      0.0
+    ],
+    "runtime_initialize_s": 11.072541999979876,
+    "runtime_optimizer_s": 0.9907384000252932,
+    "runtime_postprocess_s": 4.5826116999960504,
+    "runtime_total_s": 16.645892500004265,
+    "interpolation": {
+      "openscvx_version": "0.5.2",
+      "hold": "FOH in normalized time",
+      "segment_fraction_scale": 1.25,
+      "source": "openscvx.propagation.propagation.prop_aug_dy",
+      "expression": "beta=(tau-tau_init)*N; segment duration=1/(N-1)",
+      "warning": "In 0.5.2, segment endpoint beta=1.25; u_full uses ordinary physical-time interpolation and differs from applied controls.",
+      "resolved_control_foh_mask": [
+        1.0,
+        1.0,
+        0.0
+      ]
+    }
+  },
+  "runtime_total_s": 72.98813020001398,
+  "stop_reason": "retained_scenario_violation",
+  "final": {
+    "converged": true,
+    "scvx_iterations": 25,
+    "path_length_m": 4.2573111757620845,
+    "openscvx_propagated_distance_m": 4.240522453569264,
+    "nominal_terminal_error": [
+      -1.1994162409045828e-05,
+      6.676464454555275e-08,
+      8.08021083958943e-07
+    ],
+    "nominal_terminal_error_norm": 1.202153432322395e-05,
+    "nominal_reproduction_max_abs_error": 9.985426940417597e-06,
+    "nominal_nodal_propagation_defect_max_abs": 1.2236956858480141e-05,
+    "ctcs_violation": [
+      0.00013886886475810285
+    ],
+    "final_J_tr": 8.067463610098248e-05,
+    "final_J_vb": 0.0,
+    "final_J_vc": 3.304857025659197e-12,
+    "max_speed_m_s": 1.0155353514652115,
+    "min_speed_m_s": -0.10860653714914492,
+    "max_abs_turn_rate_rad_s": 0.7529118230720453,
+    "u_full_vs_applied_controls_max_abs_difference": 0.22039201947391795,
+    "optimization_time_grid_s": [
+      1.6716228401492117e-10,
+      1.4915467543021241,
+      3.0694198826631145,
+      5.866185264052838,
+      8.000000000125143
+    ],
+    "applied_time_grid_s": [
+      1.6716228401492117e-10,
+      1.4915467543021241,
+      3.0694198826631145,
+      5.866185264052838,
+      8.000000000125143
+    ],
+    "control_knots": [
+      [
+        0.9377173868275628,
+        0.7529118230720453
+      ],
+      [
+        0.9999717585376817,
+        -0.052130896354899224
+      ],
+      [
+        0.11310912198822043,
+        -0.347742301820431
+      ],
+      [
+        0.5055357619995572,
+        -0.03633843321304156
+      ],
+      [
+        0.5052323326676048,
+        0.3438385617686768
+      ]
+    ],
+    "time_dilation_knots": [
+      5.966187016539847,
+      6.3114925134439614,
+      11.187061525558892,
+      8.535258944289218,
+      8.000002054101245
+    ],
+    "retained_biases_rad_s": [
+      0.0,
+      -0.05
+    ],
+    "runtime_initialize_s": 9.792023499961942,
+    "runtime_optimizer_s": 0.9672488000360318,
+    "runtime_postprocess_s": 4.61295079998672,
+    "runtime_total_s": 15.372223399986979,
+    "interpolation": {
+      "openscvx_version": "0.5.2",
+      "hold": "FOH in normalized time",
+      "segment_fraction_scale": 1.25,
+      "source": "openscvx.propagation.propagation.prop_aug_dy",
+      "expression": "beta=(tau-tau_init)*N; segment duration=1/(N-1)",
+      "warning": "In 0.5.2, segment endpoint beta=1.25; u_full uses ordinary physical-time interpolation and differs from applied controls.",
+      "resolved_control_foh_mask": [
+        1.0,
+        1.0,
+        0.0
+      ]
+    }
+  },
+  "before_validation": {
+    "clearance": -0.1312086691650658,
+    "bias": -0.05,
+    "time": 3.893999999988291,
+    "position": [
+      2.1864816931979476,
+      0.37498100869846984
+    ],
+    "runtime_s": 15.368955299956724
+  },
+  "after_validation": {
+    "clearance": -0.01577641794477147,
+    "bias": -0.05,
+    "time": 2.2050000001555805,
+    "position": [
+      1.9120166662163975,
+      0.5269286181260633
+    ],
+    "runtime_s": 15.477809000003617
+  },
+  "retained_scenario_validation": [
+    {
+      "clearance": 0.08328903175555491,
+      "bias": 0.0,
+      "time": 2.075000000156263,
+      "position": [
+        1.8115443924395407,
+        0.6045986120732552
+      ],
+      "runtime_s": 0.03285479999613017
+    },
+    {
+      "clearance": -0.01577641794477147,
+      "bias": -0.05,
+      "time": 2.2050000001555805,
+      "position": [
+        1.9120166662163975,
+        0.5269286181260633
+      ],
+      "runtime_s": 0.022877699986565858
+    }
+  ],
+  "all_retained_scenarios_sampled_safe": false,
+  "reoptimization_attempts": 1,
+  "retained_biases_rad_s": [
+    0.0,
+    -0.05
+  ],
+  "baseline_applied_controls_within_bounds": false,
+  "final_applied_controls_within_bounds": false,
+  "runtime_falsifier_s": 36.6671583999414,
+  "runtime_optimizer_s": 1.957987200061325
+}

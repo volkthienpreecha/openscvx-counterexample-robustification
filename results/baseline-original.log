@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\baseline_unicycle.py", line 140, in <module>
+    problem.initialize()
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\openscvx\problem.py", line 707, in initialize
+    printing.intro()
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\openscvx\utils\printing.py", line 324, in intro
+    print(ascii_art)
+  File "C:\Users\volko\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 520-624: character maps to <undefined>

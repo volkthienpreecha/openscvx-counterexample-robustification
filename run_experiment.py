@@ -103,7 +103,8 @@ def figures(records, final_worst, output, status):
     fig, ax = plt.subplots(figsize=(8, 4.2), layout="constrained")
     ax.plot([r["iteration"] for r in records], [r["worst"]["clearance"] for r in records], "o-", color="#1769aa")
     ax.axhline(0, color="#bf1616", lw=1, ls="--", label="Zero clearance")
-    ax.set(xlabel="Number of scenario re-optimization attempts", ylabel="Worst sampled clearance [m]", title=titles[2])
+    ax.set(xlabel="Number of scenario re-optimization attempts", ylabel="Worst sampled clearance [m]",
+           title=titles[2].replace(" Across ", "\nAcross "))
     ax.set_xticks([r["iteration"] for r in records]); ax.grid(alpha=0.2)
     ax.legend(); fig.savefig(output / (names[2] + ".pdf")); fig.savefig(output / (names[2] + ".png"), dpi=160)
     plt.close(fig)

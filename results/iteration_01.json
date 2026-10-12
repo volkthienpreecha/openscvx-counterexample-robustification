@@ -1,0 +1,88 @@
+{
+  "converged": true,
+  "scvx_iterations": 25,
+  "path_length_m": 4.2573111757620845,
+  "openscvx_propagated_distance_m": 4.240522453569264,
+  "nominal_terminal_error": [
+    -1.1994162409045828e-05,
+    6.676464454555275e-08,
+    8.08021083958943e-07
+  ],
+  "nominal_terminal_error_norm": 1.202153432322395e-05,
+  "nominal_reproduction_max_abs_error": 9.985426940417597e-06,
+  "nominal_nodal_propagation_defect_max_abs": 1.2236956858480141e-05,
+  "ctcs_violation": [
+    0.00013886886475810285
+  ],
+  "final_J_tr": 8.067463610098248e-05,
+  "final_J_vb": 0.0,
+  "final_J_vc": 3.304857025659197e-12,
+  "max_speed_m_s": 1.0155353514652115,
+  "min_speed_m_s": -0.10860653714914492,
+  "max_abs_turn_rate_rad_s": 0.7529118230720453,
+  "u_full_vs_applied_controls_max_abs_difference": 0.22039201947391795,
+  "optimization_time_grid_s": [
+    1.6716228401492117e-10,
+    1.4915467543021241,
+    3.0694198826631145,
+    5.866185264052838,
+    8.000000000125143
+  ],
+  "applied_time_grid_s": [
+    1.6716228401492117e-10,
+    1.4915467543021241,
+    3.0694198826631145,
+    5.866185264052838,
+    8.000000000125143
+  ],
+  "control_knots": [
+    [
+      0.9377173868275628,
+      0.7529118230720453
+    ],
+    [
+      0.9999717585376817,
+      -0.052130896354899224
+    ],
+    [
+      0.11310912198822043,
+      -0.347742301820431
+    ],
+    [
+      0.5055357619995572,
+      -0.03633843321304156
+    ],
+    [
+      0.5052323326676048,
+      0.3438385617686768
+    ]
+  ],
+  "time_dilation_knots": [
+    5.966187016539847,
+    6.3114925134439614,
+    11.187061525558892,
+    8.535258944289218,
+    8.000002054101245
+  ],
+  "retained_biases_rad_s": [
+    0.0,
+    -0.05
+  ],
+  "runtime_initialize_s": 9.792023499961942,
+  "runtime_optimizer_s": 0.9672488000360318,
+  "runtime_postprocess_s": 4.61295079998672,
+  "runtime_total_s": 15.372223399986979,
+  "interpolation": {
+    "openscvx_version": "0.5.2",
+    "hold": "FOH in normalized time",
+    "segment_fraction_scale": 1.25,
+    "source": "openscvx.propagation.propagation.prop_aug_dy",
+    "expression": "beta=(tau-tau_init)*N; segment duration=1/(N-1)",
+    "warning": "In 0.5.2, segment endpoint beta=1.25; u_full uses ordinary physical-time interpolation and differs from applied controls.",
+    "resolved_control_foh_mask": [
+      1.0,
+      1.0,
+      0.0
+    ]
+  }
+}

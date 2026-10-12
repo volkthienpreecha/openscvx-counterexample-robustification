@@ -3,8 +3,9 @@
 \usepackage{amsmath}
 \usepackage{bm}
 \usepackage[hidelinks]{hyperref}
+\setlength{\emergencystretch}{2em}
 
-\title{Falsifier-Based robustification for OpenSCVX}
+\title{Falsifier-Based Robustification for OpenSCvx}
 \date{October 2026}
 
 \begin{document}
@@ -12,25 +13,25 @@
 \maketitle
 
 \section{Introduction}
-Robust trajectory optimization is vital for autonomous robotics systems operating under uncertain dynamics and environmental disturbances. While successive convexification (SCVx) enables efficient nonlinear trajectory optimization, nominal solutions may remain vulnerable to disturbances. The hypothesis is we propose a counterexample-guided robustification framework for OpenSCvx that integrates adversarial falsification with trajectory optimization under one system. A falsifier identifies disturbances causing continuous-time safety violations, and those disturbances are explicitly converted into constraints for subsequent SCvx iterations. What we must prove are two matters: (1) demonstrate a competitive robustness-efficiency tradeoff against existing optimization methods (2) establish whether explicit constraint-based robustification offers practical advantages over neural policy fine-tuning.
+Robust trajectory optimization is vital for autonomous robotic systems operating under uncertain dynamics and environmental disturbances. While successive convexification (SCvx) enables nonlinear trajectory optimization, nominal solutions may remain vulnerable to disturbances. We investigate a counterexample-guided robustification framework for OpenSCvx that integrates adversarial falsification with trajectory optimization. A falsifier identifies disturbances causing continuous-time safety violations, and those disturbances are explicitly converted into constraints for subsequent SCvx iterations. The initial experiment tests whether this feedback improves sampled obstacle clearance. Comparisons of computational cost against existing optimization methods and of explicit constraint updates against neural policy fine-tuning require separate experiments.
 \section{State-of-the-Art}
 \begingroup
 \setlength{\parskip}{0.8em}
 \setlength{\parindent}{0pt}
 
-Mutapcic and Boyd~\cite{mutapcic2009} developed an optimization method that repeated searches for worst-case scenarios and add new constraints to prevent similar failures. Dawson and Fan~\cite{dawson2022} applied a related approach to robotic trajectory planning where an optimizer learns from failures identified by a falsifier. Their method produced more robust trajectories while taking less than half the time of competing methods in their experiments.
+Mutapcic and Boyd~\cite{mutapcic2009} developed an optimization method that repeatedly searches for worst-case scenarios and adds new constraints to prevent similar failures. Dawson and Fan~\cite{dawson2022} applied a related approach to trajectory planning where an optimizer learns from failures identified by a falsifier. Their method produced more robust trajectories while taking less than half the time of competing methods in their experiments.
 
-Shi et al.~\cite{shi2024} used RL (PPO) to discover realistic disturbances that could cause quadrupedal robots to fail. They then retrained the robot's neutral controller's using these failures to improve its robustness. 
+Shi et al.~\cite{shi2024} used RL (PPO) to discover disturbances that could cause quadrupedal robots to fail. They then retrained the robot's neural controllers using these failures to improve their robustness.
 
-Abdul et el.~\cite{abdul2025} developed a SCvx method that plans trajectories while accounting for all disturbances within a predefined bounded set. Their approach also accounts for errors caused by approximating nonlinear dynamics. Wang et al.~\cite{wang2026} later accelerated this method using GPUs, achieving speedups of up to 139.6 times over the original implementation. Elango et al. ~\cite{elango2025} developed a way for SCvx to enforce safety constraints throughout the entire trajectory rather than only at selected time steps. 
+Abdul et al.~\cite{abdul2025} developed a SCvx method that plans trajectories while accounting for disturbances within a predefined bounded set. Their approach also accounts for errors caused by approximating nonlinear dynamics. Wang et al.~\cite{wang2026} later accelerated this method using GPUs. Elango et al.~\cite{elango2025} developed a way for SCvx to enforce safety constraints throughout the entire trajectory rather than only at selected time steps.
 
-Building on to these works, we adding a falsifier to OpenSCvx that actively searches
-for disturbances that cause trajectory failures. Each discovered failure introduces a new safety constraint and allow SCvx to replan and avoid similar failures. We aim to investigate whether this approach can achieve comparable robustness with lower computational cost and make safety improvements easier to understand. 
+Building on these works, we add a falsifier to OpenSCvx that actively searches
+for disturbances that cause trajectory failures. Each discovered failure introduces a new scenario safety constraint and allows SCvx to replan. We investigate the resulting sampled clearance and computational cost.
 
 
 
 \section{Limitations}
-Existing robust SCvx methods~\cite{abdul2025,wang2026} account for bounded disturbances, but solving these optimization problems can be computationally heavy. Counterexample-guided methods~\cite{dawson2022} improve planning by learning from failures, but do not directly integrate hard continuous-time safety constraints into SCvx. Meanwhile, adversarial RL~\cite{shi2024} improves neutral controllers through fine-tuning rather than explicit constraint updates. Potential benefits of combining adaptive falsification with continuous-time SCvx remain unexplored in the works reviewed here. 
+Existing robust SCvx methods~\cite{abdul2025,wang2026} account for bounded disturbances, but solving these optimization problems can be computationally heavy. Counterexample-guided methods~\cite{dawson2022} improve planning by learning from failures. Meanwhile, adversarial RL~\cite{shi2024} improves neural controllers through fine-tuning rather than explicit constraint updates. This experiment examines adaptive falsification with continuous-time SCvx; it does not establish that this combination is novel.
 \section{Ideas}
 A unicycle model corresponds to a rover navigating a surface environment, and this has a wide range of applications, including, but not limited to, the following case studies: 
 \begin{itemize}
@@ -38,7 +39,7 @@ A unicycle model corresponds to a rover navigating a surface environment, and th
 \item Surface exploration of unknown Earth environments (the model simplifies a legged robot, but may be representative for planning)
 \item Planning of autonomous vehicles in traffic: e.g. car, trucks... (the model simplifies a car, but may be representative for planning)
 \end{itemize}
-\section{Mathematical Mature Formulation}
+\section{Mathematical Formulation}
 
 We consider a planar unicycle with continuously actuated
 forward and angular velocities. The robot moves without
@@ -210,12 +211,12 @@ solving convex subproblems around a nominal trajectory.
     \item A circular obstacle centered at \((2,0)\) has radius \(0.55\,\mathrm{m}\).
     \item The path must satisfy \(\|\bm{p}(t)-(2,0)^\top\|_2\ge0.55\,\mathrm{m}\) for all \(t\in[0,8]\).
 \end{enumerate}
-A plot of the OpenSCvx solution follows.
+A plot of the baseline trajectory and its worst disturbed rollout follows.
 
 \begin{figure}[h!]
 \centering
-\IfFileExists{unicycle_solution.pdf}{%
-\includegraphics[width=\textwidth]{unicycle_solution.pdf}%
+\IfFileExists{../results/01_nominal_falsification.pdf}{%
+\includegraphics[width=\textwidth]{../results/01_nominal_falsification.pdf}%
 }{%
 \IfFileExists{unicycle_solution.png}{%
 \includegraphics[width=\textwidth]{unicycle_solution.png}%
@@ -223,16 +224,76 @@ A plot of the OpenSCvx solution follows.
 \fbox{\parbox{0.9\textwidth}{The baseline solution figure has not yet been supplied. Run the baseline script and copy its output here before presenting experimental results.}}%
 }%
 }
-\caption{Solution to the unicycle problem}
+\caption{Baseline nominal trajectory and worst disturbed rollout. Red segments indicate independently simulated obstacle penetration.}
 \end{figure}
 
-\newpage
-\section{Conclusions}
-This document describes a proposed experiment. Falsification, scenario-based
-re-optimization, and independent validation results have not yet been obtained.
-No robustness or computational-performance claim is established here.
+\section{Initial Experimental Results}
+The recorded experiment uses OpenSCvx 0.5.2 and the original $N=5$
+settings. A constant steering bias is searched over $[-0.05,0.05]$ rad/s
+using 101 values. Final validation uses 501 bias values and 8001 time
+samples per rollout, with independent SciPy integration. The retained
+scenario set after one re-optimization is $\{0,-0.05\}$ rad/s.
 
-\section{References}
+\begin{center}
+\begin{tabular}{lrr}
+\hline
+Metric & Before & After\\
+\hline
+Worst sampled clearance (m) & $-0.131209$ & $-0.015776$\\
+Geometric path length (m) & $4.181564$ & $4.257311$\\
+Signed distance objective (m) & $4.170101$ & $4.240522$\\
+Maximum applied speed (m/s) & $1.065051$ & $1.015535$\\
+Minimum applied speed (m/s) & $-0.088544$ & $-0.108607$\\
+\hline
+\end{tabular}
+\end{center}
+
+Both SCvx solves reported convergence. The final nominal trajectory has
+sampled clearance $0.083289$ m, but the retained disturbed scenario still
+collides. The run therefore demonstrates scenario feedback and improved
+clearance, not a successful robust repair. Total runtime was approximately
+73 s, including approximately 37 s for independent falsification and
+validation and 2 s in the optimizer loops. Remaining time includes
+initialization, compilation, post-processing, and figure generation.
+
+Inspection of the installed interpolation found
+$\beta=N(\tau-\tau_k)$ over a segment of width $1/(N-1)$.
+Thus $\beta$ reaches 1.25 for $N=5$, and the applied controls extrapolate
+beyond the next knot. This causes between-node speed-bound violations;
+the dense \texttt{u\_full} samples use a different interpolation.
+Independent integration of the reconstructed applied controls reproduces
+OpenSCvx's propagated pose within approximately $10^{-5}$.
+Geometric length uses $\int |v|\,dt$, while the original objective uses
+$\int v\,dt$; these differ because applied speed becomes negative.
+These implementation and numerical limitations must be resolved before
+claiming physical feasibility or robustness. The baseline also has a small
+zero-bias collision. Finite-grid validation is not a continuous-uncertainty
+safety certificate.
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{../results/02_counterexample_robustification.pdf}{%
+\includegraphics[width=\textwidth]{../results/02_counterexample_robustification.pdf}%
+}{\fbox{Scenario feedback figure requires the experiment outputs.}}
+\caption{Before and after scenario feedback. Remaining collisions are explicitly marked.}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\IfFileExists{../results/03_robustness_iterations.pdf}{%
+\includegraphics[width=\textwidth]{../results/03_robustness_iterations.pdf}%
+}{\fbox{Iteration figure requires the experiment outputs.}}
+\caption{Worst sampled clearance over the same disturbance interval. Both measured values remain below zero.}
+\end{figure}
+
+\clearpage
+\section{Conclusions}
+One complete falsification, counterexample feedback, and OpenSCvx re-solve
+cycle improved sampled obstacle clearance but retained a collision and
+applied control-bound violations. The experiment does not establish robust
+feasibility, algorithmic novelty, or comparative computational advantages.
+The next step is to resolve the diagnosed interpolation and constraint
+accuracy issues before broader robustness experiments.
 
 % Add \usepackage{hyperref} in your preamble.
 

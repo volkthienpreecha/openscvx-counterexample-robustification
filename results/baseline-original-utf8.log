@@ -1,0 +1,210 @@
+
+
+                            ____                    _____  _____
+                           / __ \                  / ____|/ ____|
+                          | |  | |_ __   ___ _ __ | (___ | |  __   ____  __
+                          | |  | | '_ \ / _ \ '_ \ \___ \| |  \ \ / /\ \/ /
+                          | |__| | |_) |  __/ | | |____) | |___\ V /  >  <
+                           \____/| .__/ \___|_| |_|_____/ \_____\_/  /_/\_\
+                                 | |
+                                 |_|
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+                                Author: Chris Hayner and Griffin Norris
+                                    Autonomous Controls Laboratory
+                                       University of Washington
+                                         Version: 0.5.2
+─────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+                 ╭──────────────────────────────────────────────────────╮
+                 │                   Problem Summary                    │
+                 ├──────────────────────────────────────────────────────┤
+                 │ Dimensions: 6 states (1 aug), 3 controls, 5 nodes    │
+                 │ Constraints: 0 conv, 1 nonconv, 3 ctcs               │
+                 │ Subproblem: 119 vars, 500 params, 178 constraints    │
+                 ├──────────────────────────────────────────────────────┤
+                 │ Algorithm: PenalizedTrustRegion                      │
+                 │ Autotuner: AugmentedLagrangian                       │
+                 │ Discretizer: VectorizeDiscretizeLinearize (Dopri8)   │
+                 ├──────────────────────────────────────────────────────┤
+                 │ CVX Solver: QOCO                                     │
+                 │ Float Dtype: float64                                 │
+                 │ JAX Backend: CPU (v0.11.2)                           │
+                 ╰──────────────────────────────────────────────────────╯
+
+Compiling continuous discretization solver (not saving/loading from disk)...
+Compiling discrete discretization solver (not saving/loading from disk)...
+Compiling propagation solver (not saving/loading from disk)...
+Initializing the SCvx Subproblem Solver...
+✓ SCvx Subproblem Solver initialized
+Total Initialization Time:  9.28376817703247
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+   1 │    7.25  │    11.06   │  3.6e+00 │  9.6e-01 │  0.0e+00 │  8.1e-14 │  1.5e+02 │ -5.5e-01 │  0.00e+00 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K   2 │    6.52  │    15.28   │  4.0e+00 │  9.3e-02 │  3.5e-01 │  9.1e-13 │  2.4e+01 │ -5.9e-01 │  8.30e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K   3 │    6.26  │    15.88   │  4.2e+00 │  8.6e-01 │  1.2e-01 │  1.5e-12 │  3.9e+01 │  2.6e-01 │ -5.14e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K   4 │    6.52  │    16.14   │  4.2e+00 │  7.1e-01 │  1.2e-01 │  1.5e-12 │  3.3e+01 │  3.0e-01 │ -2.72e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K   5 │    6.54  │    17.05   │  4.2e+00 │  6.6e-01 │  1.3e-01 │  6.5e-13 │  3.5e+01 │  3.7e-01 │ -3.35e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K   6 │    8.75  │    14.36   │  4.2e+00 │  6.5e-01 │  1.3e-01 │  8.0e-14 │  4.0e+01 │  5.0e-01 │ -5.49e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K   7 │    6.51  │    13.18   │  4.2e+00 │  6.8e-01 │  1.3e-01 │  4.7e-12 │  5.1e+01 │  7.9e-01 │ -9.93e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K   8 │    5.00  │    14.19   │  4.2e+00 │  7.4e-01 │  1.3e-01 │  1.2e-12 │  6.7e+01 │  1.4e+00 │ -1.65e+00 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K   9 │    6.03  │    16.81   │  4.1e+00 │  7.9e-01 │  1.3e-01 │  4.3e-12 │  8.0e+01 │  2.8e+00 │ -2.33e+00 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  10 │    7.04  │    14.16   │  4.1e+00 │  8.4e-01 │  1.3e-01 │  9.1e-14 │  8.8e+01 │  5.6e+00 │ -3.03e+00 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  11 │    4.51  │    14.58   │  4.1e+00 │  8.7e-01 │  1.3e-01 │  1.7e-12 │  8.9e+01 │  1.1e+01 │ -4.33e+00 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  12 │    6.03  │    13.36   │  4.1e+00 │  9.7e-01 │  1.3e-01 │  1.9e-13 │  9.5e+01 │  2.5e+01 │ -7.31e+01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  13 │    5.51  │    14.90   │  4.1e+00 │  4.5e-01 │  1.6e-01 │  1.1e-12 │  3.9e+01 │  2.4e+01 │ -5.26e+00 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  14 │    6.84  │    12.61   │  4.1e+00 │  3.9e-01 │  1.9e-01 │  2.1e-13 │  2.7e+01 │  4.1e+01 │  6.81e-02 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  15 │    6.00  │    15.57   │  4.1e+00 │  5.3e-02 │  1.0e-01 │  5.2e-13 │  6.7e+00 │  1.1e+01 │  1.26e+00 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  16 │    6.59  │    16.17   │  4.2e+00 │  3.2e-01 │  4.5e-02 │  8.9e-14 │  3.2e+01 │  3.3e+01 │  9.69e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  17 │    7.32  │    14.60   │  4.2e+00 │  1.0e-01 │  8.9e-03 │  2.0e-12 │  8.8e+00 │  4.6e+00 │  8.45e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  18 │    6.04  │    11.54   │  4.2e+00 │  3.7e-03 │  0.0e+00 │  4.7e-12 │ -3.6e-01 │ -4.9e-01 │  9.87e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+[1A[2K[1A[2K  19 │    5.88  │    11.13   │  4.2e+00 │  2.9e-05 │  0.0e+00 │  4.9e-13 │ -5.8e-01 │ -5.8e-01 │  9.89e-01 │   optimal  
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Iter │ Dis (ms) │ Solve (ms) │   Cost   │   J_tr   │   J_vb   │   J_vc   │ J_nonlin │  J_lin   │ acc_ratio │ Cvx Status 
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+                       ╭──────────────────────────────────────────╮
+                       │             Results Summary              │
+                       ├──────────────────────────────────────────┤
+                       │ Cost: 4.170101                           │
+                       │ CTCS Constraint Violation: [-8.47e-06]   │
+                       │ Preprocessing Time: 9.284s               │
+                       │ Main Solve Time: 0.801s                  │
+                       │ Post-processing Time: 3.735s             │
+                       │ Total Computation Time: 13.820s          │
+                       ╰──────────────────────────────────────────╯
+
+converged=True
+cost_distance=4.170101
+min_obstacle_clearance=-0.005716
+max_speed=0.999236; max_abs_turn_rate=0.661432
+initial_pose=0.000000,0.000000,0.000000
+final_pose=3.999997,-0.000002,0.000001
+Traceback (most recent call last):
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\texmanager.py", line 258, in _run_checked_subprocess
+    report = subprocess.check_output(
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\subprocess.py", line 548, in run
+    with Popen(*popenargs, **kwargs) as process:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\subprocess.py", line 1026, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "C:\Users\volko\AppData\Roaming\uv\python\cpython-3.12-windows-x86_64-none\Lib\subprocess.py", line 1538, in _execute_child
+    hp, ht, pid, tid = _winapi.CreateProcess(executable, args,
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [WinError 2] The system cannot find the file specified
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\baseline_unicycle.py", line 246, in <module>
+    fig.savefig("unicycle_solution.pdf")
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\figure.py", line 3515, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\backend_bases.py", line 2257, in print_figure
+    self.figure.draw(renderer)
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\artist.py", line 94, in draw_wrapper
+    result = draw(artist, renderer, *args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\artist.py", line 71, in draw_wrapper
+    return draw(artist, renderer)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\figure.py", line 3276, in draw
+    self.get_layout_engine().execute(self)
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\layout_engine.py", line 278, in execute
+    return do_constrained_layout(fig, w_pad=w_pad, h_pad=h_pad,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\_constrained_layout.py", line 116, in do_constrained_layout
+    make_layout_margins(layoutgrids, fig, renderer, h_pad=h_pad,
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\_constrained_layout.py", line 389, in make_layout_margins
+    pos, bbox = get_pos_and_bbox(ax, renderer)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\_constrained_layout.py", line 637, in get_pos_and_bbox
+    tightbbox = martist._get_tightbbox_for_layout_only(ax, renderer)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\artist.py", line 1485, in _get_tightbbox_for_layout_only
+    return obj.get_tightbbox(*args, **{**kwargs, "for_layout_only": True})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\axes\_base.py", line 4763, in get_tightbbox
+    ba = martist._get_tightbbox_for_layout_only(axis, renderer)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\artist.py", line 1485, in _get_tightbbox_for_layout_only
+    return obj.get_tightbbox(*args, **{**kwargs, "for_layout_only": True})
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\axis.py", line 1427, in get_tightbbox
+    self._update_label_position(renderer)
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\axis.py", line 2615, in _update_label_position
+    bboxes, bboxes2 = self._get_tick_boxes_siblings(renderer=renderer)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\axis.py", line 2403, in _get_tick_boxes_siblings
+    tlb, tlb2 = axis._get_ticklabel_bboxes(ticks_to_draw, renderer)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\axis.py", line 1404, in _get_ticklabel_bboxes
+    return ([tick.label1.get_window_extent(renderer)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\text.py", line 1076, in get_window_extent
+    bbox, _, _ = self._get_layout(self._renderer)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\text.py", line 465, in _get_layout
+    _, h, min_descent = _get_text_metrics_with_cache(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\text.py", line 59, in _get_text_metrics_with_cache
+    return get_text_metrics(text, fontprop.copy(), ismath, dpi)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\text.py", line 125, in _text_metrics
+    return local_renderer.get_text_width_height_descent(text, fontprop, ismath)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\backends\_backend_pdf_ps.py", line 406, in get_text_width_height_descent
+    return super().get_text_width_height_descent(s, prop, ismath)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\backend_bases.py", line 589, in get_text_width_height_descent
+    return self.get_texmanager().get_text_width_height_descent(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\texmanager.py", line 369, in get_text_width_height_descent
+    dvipath = cls.make_dvi(tex, fontsize)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\texmanager.py", line 301, in make_dvi
+    cls._run_checked_subprocess(
+  File "C:\Users\volko\OneDrive\Documents\ChatGPT\acl research\.venv\Lib\site-packages\matplotlib\texmanager.py", line 274, in _run_checked_subprocess
+    raise RuntimeError(
+RuntimeError: Failed to process string with tex because latex could not be found
