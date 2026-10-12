@@ -2,6 +2,7 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{amsmath}
 \usepackage{bm}
+\usepackage[hidelinks]{hyperref}
 
 \title{Falsifier-Based robustification for OpenSCVX}
 \date{October 2026}
@@ -213,12 +214,23 @@ A plot of the OpenSCvx solution follows.
 
 \begin{figure}[h!]
 \centering
-\includegraphics[width=\textwidth]{unicycle_solution.png}
+\IfFileExists{unicycle_solution.pdf}{%
+\includegraphics[width=\textwidth]{unicycle_solution.pdf}%
+}{%
+\IfFileExists{unicycle_solution.png}{%
+\includegraphics[width=\textwidth]{unicycle_solution.png}%
+}{%
+\fbox{\parbox{0.9\textwidth}{The baseline solution figure has not yet been supplied. Run the baseline script and copy its output here before presenting experimental results.}}%
+}%
+}
 \caption{Solution to the unicycle problem}
 \end{figure}
 
 \newpage
 \section{Conclusions}
+This document describes a proposed experiment. Falsification, scenario-based
+re-optimization, and independent validation results have not yet been obtained.
+No robustness or computational-performance claim is established here.
 
 \section{References}
 
