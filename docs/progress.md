@@ -17,3 +17,5 @@
 - Reviewer declined to judge PDF appearance and later README content. Executor separately rendered all three PDFs, corrected a clipped title, and checked the README against the final JSON measurements.
 - No deferred reviewer findings remain. Optional N=11 and comparative experiments were outside the prioritized single-cycle scope and were not run.
 - All three final research PDFs were rendered and inspected; the manuscript compiled with Tectonic 0.17.0 and all eight pages were inspected. A repeated reference heading was removed.
+
+- Public repository created and verified: https://github.com/volkthienpreecha/openscvx-counterexample-robustification. GitHub visibility is PUBLIC, default branch is main, and remote history matches the local commits.
