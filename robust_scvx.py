@@ -76,9 +76,13 @@ def build_problem(biases, previous=None):
     if len(biases) == 1 and previous is None:
         problem = b["problem"]
     else:
+        horizon = ox.Time(initial=0.0, final=b["T"], min=0.0, max=b["T"])
+        if previous is not None:
+            horizon.guess = previous["result"].nodes["time"].copy()
+            horizon.time_dilation_guess = previous["result"].nodes["_time_dilation"].copy()
         problem = ox.Problem(
             dynamics=dynamics, states=states, controls=controls,
-            time=ox.Time(initial=0.0, final=b["T"], min=0.0, max=b["T"]),
+            time=horizon,
             constraints=constraints, N=b["N"],
             algorithm={"lam_cost": {"distance": 1.0}, "lam_vc": 3e2, "k_max": 500,
                        "autotuner": {"type": "AugmentedLagrangian", "rho_init": 1e7, "rho_max": 1e11}},

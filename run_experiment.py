@@ -46,8 +46,12 @@ def controls_valid(summary):
             and summary["max_abs_turn_rate_rad_s"] <= 0.8 + 1e-7)
 
 
+def optimizer_runtime(report):
+    return sum(s["runtime_optimizer_s"] for s in report["solver_attempts"])
+
+
 def figures(records, final_worst, output, status):
-    plt.rcParams.update({"text.usetex": False, "font.family": "serif", "font.size": 10,
+    plt.rcParams.update({"text.usetex": False, "font.family": "serif", "font.serif": ["DejaVu Serif"], "font.size": 10,
                          "axes.spines.top": False, "axes.spines.right": False,
                          "pdf.fonttype": 42})
     output = Path(output)
@@ -106,7 +110,7 @@ def run(output="results"):
               "search_bias_count": 101, "validation_bias_count": 501,
               "search_time_count": 4001, "validation_time_count": 8001,
               "formal_safety_certificate": False, "interpolation": interpolation_info(),
-              "iterations": [], "status": "running", "failures": []}
+              "iterations": [], "solver_attempts": [], "status": "running", "failures": []}
     def save():
         report["runtime_total_s"] = perf_counter() - started
         (output / "results.json").write_text(json.dumps(report, indent=2, allow_nan=False), encoding="utf-8")
@@ -115,6 +119,7 @@ def run(output="results"):
     try:
         current = solve_and_capture(build_problem(biases), output / "baseline")
         report["baseline"] = current["summary"]
+        report["solver_attempts"].append(current["summary"])
         save()
         if not current["result"].converged:
             raise RuntimeError("Baseline did not converge; robustification was not attempted")
@@ -138,6 +143,7 @@ def run(output="results"):
             attempts += 1
             try:
                 candidate = solve_and_capture(build_problem(biases, previous=current), output / f"iteration_{attempts:02d}")
+                report["solver_attempts"].append(candidate["summary"])
                 if not candidate["result"].converged:
                     report["failed_solver"] = candidate["summary"]
                     raise RuntimeError("Expanded OpenSCvx problem did not converge")
@@ -168,7 +174,7 @@ def run(output="results"):
         report["status"] = classify(not report["failures"], final_worst["clearance"],
                                      min(r["clearance"] for r in retained), controls_valid(current["summary"]))
         report["runtime_falsifier_s"] = sum(r["worst"]["runtime_s"] for r in records) + final_worst["runtime_s"] + before_worst["runtime_s"] + sum(r["runtime_s"] for r in retained)
-        report["runtime_optimizer_s"] = sum(r["solver"]["runtime_optimizer_s"] for r in report["iterations"])
+        report["runtime_optimizer_s"] = optimizer_runtime(report)
         figures(records, final_worst, output, report["status"])
         rows = [("Geometric path length [m]", "path_length_m"),
                 ("Signed distance objective [m]", "openscvx_propagated_distance_m"),

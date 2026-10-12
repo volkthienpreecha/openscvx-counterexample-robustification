@@ -56,3 +56,20 @@ def test_capture_handles_scalar_solver_history(tmp_path):
     with np.load(tmp_path / "result.npz", allow_pickle=False) as saved:
         assert saved["J_vc_history"].item() == pytest.approx(0.01)
         np.testing.assert_allclose(saved["nodes_speed"], 1)
+
+
+def test_warm_start_preserves_nonuniform_time_and_dilation():
+    from falsifier import ControlSchedule
+    times = np.array([0, 1, 3, 5, 8], dtype=float)
+    positions = np.column_stack([times * 0.5, np.zeros(5)])
+    nodes = {"position": positions, "theta": np.zeros((5, 1)),
+             "distance": (times * 0.5)[:, None], "speed": np.full((5, 1), 0.5),
+             "turn_rate": np.zeros((5, 1)), "time": times[:, None],
+             "_time_dilation": np.array([4, 8, 8, 12, 8])[:, None]}
+    previous = {"result": SimpleNamespace(nodes=nodes),
+                "schedule": ControlSchedule(times, np.column_stack([nodes['speed'], nodes['turn_rate']]), fraction_scale=1.25)}
+    built = api().build_problem([0, -0.05], previous)
+    new_time = next(s for s in built.problem.symbolic.states if s.name == "time")
+    new_dilation = next(u for u in built.problem.symbolic.controls if u.name == "_time_dilation")
+    np.testing.assert_allclose(new_time.guess, nodes["time"])
+    np.testing.assert_allclose(new_dilation.guess, nodes["_time_dilation"])

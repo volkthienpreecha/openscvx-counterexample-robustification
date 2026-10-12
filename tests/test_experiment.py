@@ -32,3 +32,9 @@ def test_five_attempts_is_a_hard_stop():
 
 def test_control_limit_violation_prevents_success_even_without_collision():
     assert api().classify(True, 0.01, 0.01, controls_valid=False) == "control_limits_violated"
+
+
+def test_optimizer_runtime_includes_failed_attempt():
+    report = {"solver_attempts": [{"runtime_optimizer_s": 1.5},
+                                  {"runtime_optimizer_s": 2.25, "converged": False}]}
+    assert api().optimizer_runtime(report) == pytest.approx(3.75)
