@@ -38,3 +38,12 @@ def test_optimizer_runtime_includes_failed_attempt():
     report = {"solver_attempts": [{"runtime_optimizer_s": 1.5},
                                   {"runtime_optimizer_s": 2.25, "converged": False}]}
     assert api().optimizer_runtime(report) == pytest.approx(3.75)
+
+
+def test_before_after_validation_uses_each_solvers_actual_horizon():
+    from falsifier import ControlSchedule
+    before = ControlSchedule([0, 8], [[0.5, 0], [0.5, 0]])
+    after = ControlSchedule([1e-7, 8 + 1e-7], [[0.5, 0], [0.5, 0]])
+    original, updated = api().validate_pair(before, after, biases=[0], count=81)
+    assert original["clearance"] == pytest.approx(-0.55)
+    assert updated["clearance"] == pytest.approx(-0.55)

@@ -50,6 +50,13 @@ def optimizer_runtime(report):
     return sum(s["runtime_optimizer_s"] for s in report["solver_attempts"])
 
 
+def validate_pair(before, after, biases=None, count=8001):
+    if biases is None:
+        biases = np.linspace(-0.05, 0.05, 501)
+    return tuple(sweep(schedule, biases, np.linspace(schedule.times[0], schedule.times[-1], count))
+                 for schedule in (before, after))
+
+
 def figures(records, final_worst, output, status):
     plt.rcParams.update({"text.usetex": False, "font.family": "serif", "font.serif": ["DejaVu Serif"], "font.size": 10,
                          "axes.spines.top": False, "axes.spines.right": False,
@@ -156,8 +163,7 @@ def run(output="results"):
                 report["stop_reason"] = "solver_failed"
                 break
         final_times = np.linspace(current["schedule"].times[0], current["schedule"].times[-1], 8001)
-        final_worst = sweep(current["schedule"], np.linspace(-0.05, 0.05, 501), final_times)
-        before_worst = sweep(records[0]["current"]["schedule"], np.linspace(-0.05, 0.05, 501), final_times)
+        before_worst, final_worst = validate_pair(records[0]["current"]["schedule"], current["schedule"])
         retained = []
         for bias in biases:
             worst = sweep(current["schedule"], [bias], final_times)
