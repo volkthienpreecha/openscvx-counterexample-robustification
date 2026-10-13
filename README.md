@@ -2,7 +2,9 @@
 
 A reproducible experiment extending Fabio's supplied fixed-horizon unicycle
 baseline with steering-bias falsification and shared-control scenario feedback.
-The original manuscript and baseline are preserved in the sequential Git history.
+Fabio's original baseline is preserved in the sequential Git history.
+The repository contains code, tests, numerical results, and reproduction notes.
+Generated images, PDFs, and manuscript files are excluded from the working tree.
 
 **Measured outcome: clearance improved, but the repair remains unsafe.** One
 counterexample was added and the expanded OpenSCvx problem converged. Independent
@@ -40,15 +42,8 @@ terminal errors, control knots, time grids, and component timings. The signed
 distance objective differs from geometric length because applied speed briefly
 becomes negative.
 
-![Nominal falsification](results/01_nominal_falsification.png)
-
-![Scenario feedback](results/02_counterexample_robustification.png)
-
-![Measured iteration clearance](results/03_robustness_iterations.png)
-
-Vector figures: [Figure 1](results/01_nominal_falsification.pdf),
-[Figure 2](results/02_counterexample_robustification.pdf),
-[Figure 3](results/03_robustness_iterations.pdf).
+Running the experiment regenerates the three figure images and vector PDFs in
+the selected output directory. Those generated files are ignored by Git.
 
 ## Reproduce on Windows / PowerShell
 
@@ -129,10 +124,6 @@ The upstream package is left unchanged. Resolving its interpolation and constrai
 accuracy issues is necessary before treating the resulting controls as a feasible
 physical repair.
 
-To rebuild the manuscript with Tectonic 0.17.0, run `tectonic main.tex` from
-`paper/`. The checked-in PDF was compiled and all eight pages were rendered and
-visually inspected. The source uses the research figures from `../results/`.
-
 ## Files
 
 - `baseline_unicycle.py`: supplied Fabio baseline, preserved.
@@ -141,13 +132,10 @@ visually inspected. The source uses the research figures from `../results/`.
 - `run_experiment.py`: outer loop, validation, JSON report, table and figures.
 - `tests/`: dynamics, interpolation, sharing, warm starts, collision detection,
   failure reporting, stopping conditions, and timing tests.
-- `paper/main.tex`: working manuscript, with measured outcome and build fixes.
-- `paper/main.pdf`: compiled working manuscript, including the measured figures.
-- `docs/experiment-specification.md`: original supplied experiment instructions.
-- `docs/implementation-plan.md`, `docs/progress.md`: approved plan and execution evidence.
+- `results/`: saved numerical measurements, raw arrays, and execution logs.
+- `docs/api-notes.md`: installed API inspection and numerical limitations.
 
 The initial baseline was provided by Fabio through the user. Counterexample-guided
 planning already exists in the literature, including
 [Dawson and Fan (2022)](https://arxiv.org/abs/2203.02038). This repository makes no
-algorithmic novelty claim. Original literature references are retained in the manuscript;
-their presence is not a comprehensive literature review.
+algorithmic novelty claim. This experiment is not a comprehensive literature review.

@@ -8,3 +8,6 @@ __pycache__/
 !results/*.log
 *.out
 *.toc
+*.pdf
+*.png
+*.tex

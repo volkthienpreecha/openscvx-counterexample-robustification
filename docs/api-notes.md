@@ -49,9 +49,8 @@ The unmodified baseline first encountered a Windows console encoding error.
 `PYTHONUTF8=1` resolved that environment issue. Its optimization subsequently
 converged, but external-LaTeX plot rendering failed because `latex` is absent.
 The experiment driver uses the same optimization construction and Matplotlib
-mathtext for research figures. The manuscript preview compiler also failed with
-a Windows sandbox setup error. A local Tectonic 0.17.0 fallback successfully
-compiled `paper/main.pdf`; its rendered output was inspected separately.
+mathtext for research figures. Generated figures and manuscript assets are kept
+outside the repository; the experiment still regenerates its figures on demand.
 
 ## Official references
 
